@@ -16,21 +16,10 @@
     const root = ReactDOM.createRoot(container);
     root.render(<App images={images} visibleItems={visibleItems} finishedItems={finishedItems}/>);
 
-    function App({images = [], visibleItems = []}) {
-      const cards = images.map((item) => (
-        <Card
-          key={item.id}
-          url={item.url}
-          alt={item.description}
-          isVisible={visibleItems.includes(item.id)}
-          isFinished={finishedItems.includes(item.id)}
-        />
-      ));
+    function App({images = [], visibleItems = [], finishedItems = []}) {
       return (
         <section className="game container">
-          <ul className="cards cards-theme-cars">
-            {cards}
-          </ul>
+          <Grid images={images} visibleItems={visibleItems} finishedItems={finishedItems}/>
         </section>
       )
     }
@@ -45,6 +34,23 @@
         <li className={clasName}>
           <img src={url} width="204" height="144" alt={description}/>
         </li>
+      )
+    }
+
+    function Grid({images, visibleItems, finishedItems}) {
+      const cards = images.map((item) => (
+        <Card
+          key={item.id}
+          url={item.url}
+          alt={item.description}
+          isVisible={visibleItems.includes(item.id)}
+          isFinished={finishedItems.includes(item.id)}
+        />
+      ));
+      return (
+        <ul className="cards cards-theme-cars">
+          {cards}
+        </ul>
       )
     }
   </script>
